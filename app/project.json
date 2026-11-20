@@ -10,7 +10,8 @@
     "扣杂竞价",
     "更正裁决",
     "应付对账",
-    "结算归档"
+    "结算归档",
+    "货包分摊"
   ],
   "rule": "双次称重先配对，再按品类扣杂；更正只能替代指定版本，禁止重复支付",
   "lane": "L1",
@@ -29,7 +30,8 @@
     "auction",
     "correction",
     "reconcile",
-    "archive"
+    "archive",
+    "allocation"
   ],
   "labels": {
     "id": "记录号",
@@ -63,6 +65,18 @@
     "repeated_header": "重复表头",
     "row_balanced": "行守恒",
     "money_balanced": "金额守恒",
-    "blocked": "阻断项"
+    "blocked": "阻断项",
+    "package": "货包",
+    "buyer": "买家",
+    "deal_kg": "原成交 kg",
+    "deal_billable_kg": "原成交计价 kg",
+    "deal_amount": "原成交 CNY",
+    "basis": "采用依据",
+    "delta_kg": "差额 kg",
+    "delta_amount": "差额 CNY",
+    "allocated_kg": "分摊合计 kg",
+    "balanced": "对平",
+    "packages": "货包数",
+    "reweigh_kg": "复秤 kg"
   }
 }

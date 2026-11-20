@@ -13,6 +13,7 @@
 | M5 更正裁决 | 查看并执行更正裁决 | `POST /api/correction` | `app/modules/correction/rules.py` | `tests/test_correction.py` |
 | M6 应付对账 | 查看并执行应付对账 | `POST /api/reconcile` | `app/modules/reconcile/rules.py` | `tests/test_reconcile.py` |
 | M7 结算归档 | 查看并执行结算归档 | `POST /api/archive` | `app/modules/archive/rules.py` | `tests/test_archive.py` |
+| M8 货包分摊 | 查看并执行货包分摊、发布与确认 | `POST /api/allocation` | `app/modules/allocation/rules.py` | `tests/test_allocation.py` |
 
 ## 陷阱登记
 
@@ -30,6 +31,13 @@
 | TRAP-06 | 全角千分位 | 静默错算或丢失证据 | 显式归一与原因裁决 | `app/modules/conversion/rules.py` | `tests/test_conversion.py::test_fullwidth_thousands` |
 | TRAP-10 | 金额半分舍入 | 静默错算或丢失证据 | 显式归一与原因裁决 | `app/modules/auction/rules.py` | `tests/test_auction.py::test_half_cent_rounding` |
 | TRAP-26 | 陈旧更正分支 | 静默错算或丢失证据 | 显式归一与原因裁决 | `app/modules/correction/rules.py` | `tests/test_correction.py::test_stale_branch` |
+| TRAP-31 | 复秤合计超整票计价重 | 整票未对平仍出分摊结果 | 整票阻断转待处理不产出 | `app/modules/allocation/rules.py` | `tests/test_allocation.py::test_reweigh_overflow_blocks_whole_ticket` |
+| TRAP-32 | 发布中断残留 | 半提交状态顶替当前版 | publishing 残留回滚，旧版保持当前 | `app/store.py` | `tests/test_allocation.py::test_interrupted_publish_rolls_back` |
+| TRAP-33 | 已确认记录被重跑冲掉 | 新结果静默覆盖已确认 | 冲突货包转待处理，确认记录不动 | `app/store.py` | `tests/test_allocation.py::test_confirmed_record_never_overwritten` |
+
+## 分摊规则
+
+输入=生效票+成交凭据(deals)+复秤记录(reweighs)。已复秤货包采用复秤值，剩余计价重按原成交份额比例分摊，尾差归集到份额最大（并列取货包号最小）的未复秤货包。分摊合计与整票计价重对平才产出；整票未对平、货包无法对应时不新增结果。发布按内容摘要幂等，两阶段提交，中断恢复旧版；逐货包确认跨批次保护，历史版本全部保留。
 
 ## 对账规则
 

@@ -7,6 +7,10 @@ document.querySelector('#filter').addEventListener('input',event=>{const text=ev
 const review=document.querySelector('#review');if(review)review.addEventListener('click',async()=>{try{const run=await fetch('/api/runs/'+review.dataset.id).then(r=>r.json());const result=await request('/api/runs/'+review.dataset.id+'/review',{revision:run.revision});feedback.textContent=result.status;}catch(error){feedback.textContent=error.message;}});
 const selected=new URL(location.href).searchParams.get('dataset');if(selected)document.querySelector('#dataset').value=selected;
 
+const publishBtn=document.querySelector('#publish');
+if(publishBtn)publishBtn.addEventListener('click',async event=>{event.target.disabled=true;feedback.textContent='发布中…';try{const data=await request('/api/allocation/publish',{run_id:document.body.dataset.runId});feedback.textContent=`已发布第 ${data.version} 版 · ${data.payload.rows.length} 货包对平`;location.reload();}catch(error){feedback.textContent=error.message;event.target.disabled=false;}});
+document.querySelectorAll('.confirm').forEach(btn=>btn.addEventListener('click',async()=>{btn.disabled=true;try{const data=await request('/api/allocation/confirm',{run_id:document.body.dataset.runId,package:btn.dataset.package,billable_kg:btn.dataset.billable});feedback.textContent=`货包 ${data.package} 已确认`;location.reload();}catch(error){feedback.textContent=error.message;btn.disabled=false;}}));
+
 const filePicker=document.querySelector('#csv-file');
 if(filePicker){
  const editor=document.querySelector('#csv-text');

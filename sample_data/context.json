@@ -6,9 +6,27 @@
     "auction",
     "correction",
     "reconcile",
-    "archive"
+    "archive",
+    "allocation"
   ],
   "market": "东港水产",
   "currency": "CNY",
-  "weight_unit": "kg"
+  "weight_unit": "kg",
+  "deals": [
+    {"package": "A-01", "ticket": "00001", "buyer": "买家甲", "deal_kg": "60", "price": "12.30"},
+    {"package": "A-02", "ticket": "00001", "buyer": "买家乙", "deal_kg": "40", "price": "12.30"},
+    {"package": "B-01", "ticket": "00002", "buyer": "买家丙", "deal_kg": "50", "price": "12.35"},
+    {"package": "B-02", "ticket": "00002", "buyer": "买家丁", "deal_kg": "40", "price": "12.35"},
+    {"package": "C-01", "ticket": "00004", "buyer": "买家甲", "deal_kg": "30", "price": "12.30"},
+    {"package": "C-02", "ticket": "00004", "buyer": "买家乙", "deal_kg": "30", "price": "12.30"},
+    {"package": "C-03", "ticket": "00004", "buyer": "买家丙", "deal_kg": "30", "price": "12.30"},
+    {"package": "D-01", "ticket": "00005", "buyer": "买家丁", "deal_kg": "50", "price": "12.30"},
+    {"package": "D-02", "ticket": "00005", "buyer": "买家甲", "deal_kg": "45", "price": "12.30"},
+    {"package": "X-01", "ticket": "00903", "buyer": "买家戊", "deal_kg": "30", "price": "12.30"}
+  ],
+  "reweighs": [
+    {"package": "A-01", "reweigh_kg": "62"},
+    {"package": "D-01", "reweigh_kg": "96"},
+    {"package": "Z-99", "reweigh_kg": "10"}
+  ]
 }
